@@ -5,6 +5,9 @@
     <title>Bank Products</title>
 </head>
 <body>
+ {% if user.is_authenticated %}
+ <a href="{% url 'logout' %}"> {{ user.username }}</a>
+ {% endif %}
 {% block content %}
     <div class="deal-form">
         <form action="" method="post">

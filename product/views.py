@@ -12,8 +12,7 @@ from product.forms import CustomerForm, DealForm
 def products(request):
     DealFormSet = modelformset_factory(Deal, form=DealForm, extra=1)
     if request.method == 'POST':
-        queryset = Deal.objects.filter(user=request.user)
-        formset = DealFormSet(request.POST, request.FILES, queryset=queryset)
+        formset = DealFormSet(request.POST, request.FILES)
         if formset.is_valid():
             instances = formset.save(commit=False)
             for i, instance in enumerate(instances, 1):
