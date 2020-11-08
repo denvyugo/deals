@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bank Products</title>
+</head>
+<body>
+{% block content %}
+    <div class="deal-form">
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ formset.management_form }}
+            <table class="table">
+            {% for form in formset %}
+                {% if forloop.first %}
+                <thead>
+                <tr>
+                    {% for field in form.visible_fields %}
+                    <th>{{ field.label|capfirst }}</th>
+                    {% endfor %}
+                </tr>
+                </thead>
+                {% endif %}
+                <tr>
+                    {% for field in form.visible_fields %}
+                    <td>
+                        {{ field.errors.as_ul }}
+                        {{ field }}
+                    </td>
+                    {% endfor %}
+                    {% for hide in form.hidden_fields %}
+                    <td>{{ hide }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </table>
+            <input type="submit">
+        </form>
+    </div>
+{% endblock %}
+</body>
+</html>
